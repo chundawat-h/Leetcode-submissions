@@ -1,28 +1,28 @@
 class Solution {
     public void setZeroes(int[][] matrix) {
-        boolean[][] visited = new boolean[matrix.length][matrix[0].length];
+        TreeSet<Integer> rows = new TreeSet<>();
+        TreeSet<Integer> cols = new TreeSet<>();
         for (int i = 0 ; i < matrix.length; i++){
             for (int j = 0 ; j < matrix[i].length;j++){
-                if( visited[i][j] == false && matrix[i][j]==0){
-                    visited[i][j]= true;
-                    int k = 0;
-                    while(k< matrix[i].length){
-                        if(matrix[i][k]!=0){
-                            visited[i][k] = true;
-                        }
-                        matrix[i][k]=0;
-                        k++;
-                    }
-                    k = 0;
-                    while(k< matrix.length){
-                        if(matrix[k][j]!=0){
-                            visited[k][j] = true;
-                        }
-                        matrix[k][j]=0;
-                        k++;
-                    }
+                if(matrix[i][j]==0){
+                    rows.add(i);
+                    cols.add(j);
                 }
             }
         }
+        while(!rows.isEmpty()){
+            int x = rows.pollFirst();
+            for (int j = 0 ; j < matrix[0].length;j++){
+                matrix[x][j]=0;
+            }           
+        }
+        while(!cols.isEmpty()){
+            int x = cols.pollFirst();
+            for (int j = 0 ; j < matrix.length;j++){
+                matrix[j][x]=0;
+            }           
+        }
+
+
     }
 }
